@@ -7,7 +7,14 @@ defmodule Civo.MixProject do
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      description: "Elixir wrapper of the Civo hosting API.",
+      source_url: "https://github.com/Lazarus404/civo",
+      package: package(),
+      docs: [
+        extras: ["README.md", "CHANGELOG.md"],
+        main: "readme"
+      ]
     ]
   end
 
@@ -24,5 +31,19 @@ defmodule Civo.MixProject do
       {:poison, "~> 4.0"},
       {:exvcr, "~> 0.10.4"}
     ]
+  end
+
+  defp package do
+    %{
+      files: [
+        "lib",
+        "mix.exs",
+        "README.md",
+        "CHANGELOG.md"
+      ],
+      maintainers: ["Jahred Love"],
+      licenses: ["MIT"],
+      links: %{"Github" => "https://github.com/Lazarus404/civo"}
+    }
   end
 end
