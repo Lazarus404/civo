@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m3r4nd0m4p1c0d3"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 50000,
+        "connect_timeout": 50000
+      },
+      "request_body": "",
+      "url": "https://api.civo.com/v2/sizes?"
+    },
+    "response": {
+      "binary": false,
+      "body": "[{\"id\":\"fa8b75fa-4da6-4ab0-8b1e-fa6e78f7a6aa\",\"name\":\"g2.xsmall\",\"nice_name\":\"Extra Small\",\"cpu_cores\":1,\"ram_mb\":1024,\"disk_gb\":25,\"description\":\"Extra Small - 1GB RAM, 1 CPU Core, 25GB SSD Disk\",\"selectable\":true},{\"id\":\"2859cc60-a2d8-4a95-b1c9-3ecdb14ddca3\",\"name\":\"g2.small\",\"nice_name\":\"Small\",\"cpu_cores\":1,\"ram_mb\":2048,\"disk_gb\":25,\"description\":\"Small - 2GB RAM, 1 CPU Core, 25GB SSD Disk\",\"selectable\":true},{\"id\":\"a06ccb53-ae71-46d4-b6e3-d0f77a0985d6\",\"name\":\"g2.medium\",\"nice_name\":\"Medium\",\"cpu_cores\":2,\"ram_mb\":4096,\"disk_gb\":50,\"description\":\"Medium - 4GB RAM, 2 CPU Cores, 50GB SSD Disk\",\"selectable\":true},{\"id\":\"4860b063-34a2-4ea6-b175-f46fea9d3b57\",\"name\":\"g2.large\",\"nice_name\":\"Large\",\"cpu_cores\":4,\"ram_mb\":8192,\"disk_gb\":100,\"description\":\"Large - 8GB RAM, 4 CPU Cores, 100GB SSD Disk\",\"selectable\":true},{\"id\":\"39934725-919e-4d5e-902b-78987d347095\",\"name\":\"g2.xlarge\",\"nice_name\":\"Extra Large\",\"cpu_cores\":6,\"ram_mb\":16386,\"disk_gb\":150,\"description\":\"Extra Large - 16GB RAM, 6 CPU Core, 150GB SSD Disk\",\"selectable\":true},{\"id\":\"39cf1021-2e3f-4cc2-91a8-d0a557580d26\",\"name\":\"g2.2xlarge\",\"nice_name\":\"2X Large\",\"cpu_cores\":8,\"ram_mb\":32768,\"disk_gb\":200,\"description\":\"2X Large - 32GB RAM, 8 CPU Core, 200GB SSD Disk\",\"selectable\":true}]",
+      "headers": {
+        "Cache-Control": "max-age=3600, private",
+        "Content-Length": "1262",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 13:47:33 GMT",
+        "Etag": "\"bdc35e8b81717f8c3329eac95378d16b\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570456058.169118; path=/; max-age=10; expires=Mon, 07 Oct 2019 13:47:43 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570456080",
+        "X-Request-Id": "993fea4f-b6f5-42a9-b30e-34f0d33f2e04",
+        "X-Runtime": "0.012677"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "delete",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/dns/54f151f9-c529-4cc2-9225-db30306d6234/records/01f06424-15de-4a42-b8ec-eff144f865d0"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"result\":\"success\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "20",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 20:39:26 GMT",
+        "Etag": "\"8e3daee2e90ae3b959be81a7176c2a0d\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570480771.6235454; path=/; max-age=10; expires=Mon, 07 Oct 2019 20:39:36 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Request-Id": "a21f6753-1b34-4ef6-b8ca-8b142269998d",
+        "X-Runtime": "0.027058"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

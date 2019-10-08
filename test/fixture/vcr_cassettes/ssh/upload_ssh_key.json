@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"public_key\":\"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDmrBQ2a+bfVRlrL/kNbt0Qwi8gNDXJ5yQsEoLgTDatgBSTZSOjd6hKl4bTksUKoN1qYg2Vvn4xuK3cMBlX1HGDbDDaNn9jbJm4hhMb6EuRzUmbx9YFA+IIoDotFuG01p2MuZN7ZZFxfZQcb4ZWLjg9GP5zUcXIak9c3dCFSXvz5gTyO5aVZSJMgWnpZS0iQvR+sCG5gZ51+3g/bf4zF95jtWpsG0mnmoiFCdvGFom0EesvLesjnKoiiEC1XHKKYrhcZnWkkqmmvFL2n0Isn7MWG9fMze8DSF6MjopsqcegTxlAicmlr053qK7szkSK9tm66MqV4A3qCxaUyHjYY+mT test\",\"name\":\"test\"}",
+      "headers": {
+        "authorization": "Bearer 50m3r4nd0m4p1c0d3",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/sshkeys"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"result\":\"success\",\"id\":\"ed1fc75b-3c28-419c-acc5-2d325d0918ca\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "64",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 10:10:20 GMT",
+        "Etag": "\"3600940b4423c8974b8a472b2a5cdb0f\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570443025.9369254; path=/; max-age=10; expires=Mon, 07 Oct 2019 10:10:30 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570443060",
+        "X-Request-Id": "dd3f2aa4-7821-4aa5-ba92-1128482b83c9",
+        "X-Runtime": "0.062021"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

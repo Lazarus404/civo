@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"name\":\"test\"}",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/firewalls"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"result\":\"success\",\"id\":\"3c9b41f0-4c14-4b40-b7d3-92ea5ec0b38a\",\"name\":\"test\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "78",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 16:01:34 GMT",
+        "Etag": "\"da9b9cb83f3cf90165fe12996e60e8ec\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570464099.029167; path=/; max-age=10; expires=Mon, 07 Oct 2019 16:01:44 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570464120",
+        "X-Request-Id": "b192b111-afe8-44ec-b930-976dcec7c710",
+        "X-Runtime": "0.041243"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

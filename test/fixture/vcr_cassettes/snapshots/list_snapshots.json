@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 50000,
+        "connect_timeout": 50000
+      },
+      "request_body": "",
+      "url": "https://api.civo.com/v2/snapshots?"
+    },
+    "response": {
+      "binary": false,
+      "body": "[{\"id\":\"17a4fff0-a2e5-4d2f-b13e-54c6fa94e10e\",\"instance_id\":\"7b56fbde-6484-41b4-ada1-deb8c34c6fbf\",\"hostname\":\"minecraft\",\"template_id\":\"811a8dfb-8202-49ad-b1ef-1e6320b20497\",\"openstack_snapshot_id\":\"801948b3-7460-4004-89d1-e6347680eedf\",\"region\":\"lon1\",\"name\":\"test\",\"safe\":0,\"size_gb\":50,\"state\":\"complete\",\"cron_timing\":null,\"requested_at\":\"2019-10-07T14:56:31.000+01:00\",\"completed_at\":\"2019-10-07T14:57:28.000+01:00\"}]",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "423",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 15:32:40 GMT",
+        "Etag": "\"5e7d089bc38bb7e337cd9feb4ec03fad\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570462365.1860828; path=/; max-age=10; expires=Mon, 07 Oct 2019 15:32:50 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "48",
+        "X-Ratelimit-Reset": "1570462380",
+        "X-Request-Id": "251bfb1e-bed4-491e-9d5e-39905d20e3ea",
+        "X-Runtime": "0.017021"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

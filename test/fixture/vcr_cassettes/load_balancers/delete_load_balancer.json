@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "delete",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/loadbalancers/6b922e4a-e148-4767-9ce8-09745d753640"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"result\":\"success\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "20",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Tue, 08 Oct 2019 15:45:30 GMT",
+        "Etag": "\"8e3daee2e90ae3b959be81a7176c2a0d\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570549535.639766; path=/; max-age=10; expires=Tue, 08 Oct 2019 15:45:40 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Request-Id": "d70fcae1-8a48-49e7-b39e-7f6baf615eb0",
+        "X-Runtime": "0.037308"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

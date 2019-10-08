@@ -1,0 +1,35 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/quota?"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"a6bf8309-3510-4fc0-6321-2107b3d32d40\",\"default_user_id\":\"bb7916bb-e55e-456b-4f00-bb702e6e75fe\",\"default_user_email_address\":\"lee@xirsys.com\",\"instance_count_limit\":32,\"instance_count_usage\":3,\"cpu_core_limit\":32,\"cpu_core_usage\":4,\"ram_mb_limit\":131072,\"ram_mb_usage\":6144,\"disk_gb_limit\":800,\"disk_gb_usage\":100,\"disk_volume_count_limit\":64,\"disk_volume_count_usage\":3,\"disk_snapshot_count_limit\":48,\"disk_snapshot_count_usage\":0,\"public_ip_address_limit\":32,\"public_ip_address_usage\":3,\"subnet_count_limit\":10,\"subnet_count_usage\":2,\"network_count_limit\":10,\"network_count_usage\":2,\"security_group_limit\":16,\"security_group_usage\":1,\"security_group_rule_limit\":160,\"security_group_rule_usage\":14,\"port_count_limit\":64,\"port_count_usage\":4}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "748",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 19:30:16 GMT",
+        "Etag": "\"cf398556815f3d07b289c9f37a403cab\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570476621.5368772; path=/; max-age=10; expires=Mon, 07 Oct 2019 19:30:26 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "48",
+        "X-Ratelimit-Reset": "1570476660",
+        "X-Request-Id": "ba1847a7-3f14-43e4-ae10-f7268d8767e8",
+        "X-Runtime": "0.022240"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

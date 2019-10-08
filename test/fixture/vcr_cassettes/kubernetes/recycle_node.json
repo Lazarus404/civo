@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"hostname\":\"kube-node-707a\"}",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/kubernetes/clusters/be80b74c-f6ee-4a4e-ab6c-fc0ce2885daa/recycle"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"result\":\"success\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "20",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 19:16:26 GMT",
+        "Etag": "\"8e3daee2e90ae3b959be81a7176c2a0d\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570475791.5734992; path=/; max-age=10; expires=Mon, 07 Oct 2019 19:16:36 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570475820",
+        "X-Request-Id": "77d8b3d5-2883-43e2-be4f-44921d4794af",
+        "X-Runtime": "0.016187"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

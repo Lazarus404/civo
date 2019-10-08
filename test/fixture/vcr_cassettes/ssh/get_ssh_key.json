@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 50000,
+        "connect_timeout": 50000
+      },
+      "request_body": "",
+      "url": "https://api.civo.com/v2/sshkeys/5b391602-7d6d-49ad-aaf0-df5dcaa8e952?"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"5b3bc502-7d6d-49ad-aaf0-df5dc4fa952\",\"name\":\"Blade\",\"fingerprint\":\"\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "127",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 15:31:43 GMT",
+        "Etag": "\"c5458da2d5c72c7ac67c7da0df8eaa87\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570462308.8228917; path=/; max-age=10; expires=Mon, 07 Oct 2019 15:31:53 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570462320",
+        "X-Request-Id": "39d75721-e934-4ece-8317-368f62ddb3a5",
+        "X-Runtime": "0.011458"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

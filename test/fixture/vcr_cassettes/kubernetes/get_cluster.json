@@ -1,0 +1,35 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/kubernetes/clusters/be80b74c-f6ee-4a4e-ab6c-fc0ce2885daa?"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"be80b74c-f6ee-4a4e-ab6c-fc0ce2885daa\",\"name\":\"test\",\"version\":\"2\",\"status\":\"ACTIVE\",\"ready\":true,\"num_target_nodes\":3,\"target_nodes_size\":\"g2.xsmall\",\"built_at\":\"2019-10-07T19:53:14.000+01:00\",\"kubeconfig\":\"apiVersion: v1\\nclusters:\\n- cluster:\\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJXRENCL3FBREFnRUNBZ0VBTUFvR0NDcUdTTTQ5QkFNQ01DTXhJVEFmQmdOVkJBTU1HR3N6Y3kxelpYSjIKWlhJdFkyRkFNVFUzTURRM05ETTRPREFlRncweE9URXdNRGN4T0RVek1EaGFGdzB5T1RFd01EUXhPRFV6TURoYQpNQ014SVRBZkJnTlZCQU1NR0dzemN5MXpaWEoyWlhJdFkyRkFNVFUzTURRM05ETTRPREJaTUJNR0J5cUdTTTQ5CkFnRUdDQ3FHU000OUF3RUhBMElBQkZrVjc1TVpNMjJaM0xrM3NUbWVjakh0RTI3MVNXSndqNXU0T1E2eUgwRTkKWXBwL0Zza0NJY24xeGZuQ2xhNUNCalZiM09IMVJuQTFVWUgwK2dodUF4dWpJekFoTUE0R0ExVWREd0VCL3dRRQpBd0lDcERBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUFvR0NDcUdTTTQ5QkFNQ0Ewa0FNRVlDSVFDL0Q4bDdWQlM4CmNEV1p0Q2V4dlBPanFNYUEzQVlsS3JUc05aUElNZVUwL1FJaEFNUkNEZEhoZXpMMlI1QUR0U3JsZVRMMFlPelYKNnRzSlYzTHg0dXNaK2VrcAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\\n    server: https://185.136.233.76:6443\\n  name: test\\ncontexts:\\n- context:\\n    cluster: test\\n    user: test\\n  name: test\\ncurrent-context: test\\nkind: Config\\npreferences: {}\\nusers:\\n- name: test\\n  user:\\n    password: 2301bb1bbdf90d982e3e5bd32c580161\\n    username: admin\\n\",\"kubernetes_version\":\"0.8.1\",\"api_endpoint\":\"https://185.136.233.76:6443\",\"dns_entry\":\"be80b74c-f6ee-4a4e-ab6c-fc0ce2885daa.k8s.civo.com\",\"tags\":[],\"created_at\":\"2019-10-07T19:51:45.000+01:00\",\"instances\":[{\"hostname\":\"kube-master-545f\",\"size\":\"g2.xsmall\",\"region\":\"lon1\",\"created_at\":\"2019-10-07T19:51:46.000+01:00\",\"status\":\"ACTIVE\",\"firewall_id\":\"81f7c2cc-6b57-4cf3-8b33-ba26da490f82\",\"public_ip\":\"185.136.233.76\",\"tags\":[\"civo-kubernetes:installed\",\"civo-kubernetes:master\"]},{\"hostname\":\"kube-node-53c1\",\"size\":\"g2.xsmall\",\"region\":\"lon1\",\"created_at\":\"2019-10-07T19:51:46.000+01:00\",\"status\":\"ACTIVE\",\"firewall_id\":\"81f7c2cc-6b57-4cf3-8b33-ba26da490f82\",\"public_ip\":\"185.136.233.120\",\"tags\":[\"civo-kubernetes:installed\",\"civo-kubernetes:node\"]},{\"hostname\":\"kube-node-707a\",\"size\":\"g2.xsmall\",\"region\":\"lon1\",\"created_at\":\"2019-10-07T19:51:46.000+01:00\",\"status\":\"ACTIVE\",\"firewall_id\":\"81f7c2cc-6b57-4cf3-8b33-ba26da490f82\",\"public_ip\":\"185.136.233.91\",\"tags\":[\"civo-kubernetes:installed\",\"civo-kubernetes:node\"]}],\"installed_applications\":[{\"application\":\"Traefik\",\"title\":null,\"version\":\"(default)\",\"dependencies\":null,\"maintainer\":\"@Rancher_Labs\",\"description\":\"A reverse proxy/load-balancer that's easy, dynamic, automatic, fast, full-featured, open source, production proven and provides metrics.\",\"post_install\":\"## Traefik - Default ingress controller\\n\\n### External access to your services\\n\\nTraefik is installed in K3s as the default ingress controller. To use it for your applications all you have to do is apply a YAML file like the one below to handle ingress:\\n\\n```\\napiVersion: extensions/v1beta1\\nkind: Ingress\\nmetadata:\\n  name: yourapp-ingress\\n  namespace: default\\n  annotations:\\n    kubernetes.io/ingress.class: traefik\\nspec:\\n  rules:\\n  - host: www.example.com\\n    http:\\n      paths:\\n      - path: /\\n        backend:\\n          serviceName: yourapp-service\\n          servicePort: http\\n```\\n\\nThis will open up http://www.example.com (assuming you pointed that non-real domain record to your cluster's IPs) to the whole world.\\n\",\"installed\":true,\"url\":\"https://traefik.io\",\"category\":\"architecture\",\"updated_at\":\"2019-10-07T19:51:45.000+01:00\",\"image_url\":\"https://api.civo.com/k3s-marketplace/traefik.png\",\"plan\":null,\"configuration\":{}}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "3556",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 19:02:06 GMT",
+        "Etag": "\"550cc2e678baea5a1857922d330228c7\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570474931.8690484; path=/; max-age=10; expires=Mon, 07 Oct 2019 19:02:16 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570474980",
+        "X-Request-Id": "5435427b-d70a-4221-b121-5433b3077322",
+        "X-Runtime": "0.031433"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

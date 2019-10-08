@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "{\"name\":\"test.co.uk\"}",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/dns"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"result\":\"success\",\"id\":\"d7535033-315b-476f-b87e-86e7c075f11c\",\"name\":\"test.co.uk\"}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "84",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 20:38:09 GMT",
+        "Etag": "\"3b101113a61b7fe17b497ba2b1677ea7\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570480694.168745; path=/; max-age=10; expires=Mon, 07 Oct 2019 20:38:19 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Request-Id": "426808f9-9dbd-4ae8-a1cf-750122b70bd5",
+        "X-Runtime": "0.039750"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

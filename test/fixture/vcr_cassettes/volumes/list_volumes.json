@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 50000,
+        "connect_timeout": 50000
+      },
+      "request_body": "",
+      "url": "https://api.civo.com/v2/volumes?"
+    },
+    "response": {
+      "binary": false,
+      "body": "[]",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "2",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 16:46:13 GMT",
+        "Etag": "\"9ff8bf81170e3d10f423be0ea3babea7\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570466778.2682369; path=/; max-age=10; expires=Mon, 07 Oct 2019 16:46:23 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570466820",
+        "X-Request-Id": "c76422a7-8463-42a9-b0fa-b5af98dbdd08",
+        "X-Runtime": "0.013576"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

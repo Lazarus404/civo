@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 50000,
+        "connect_timeout": 50000
+      },
+      "request_body": "",
+      "url": "https://api.civo.com/v2/networks?"
+    },
+    "response": {
+      "binary": false,
+      "body": "[{\"id\":\"eeb8e10b-4421-456d-537d-2cbbe58bfe64\",\"name\":\"Default\",\"region\":\"lon1\",\"default\":true,\"cidr\":\"10.0.0.0/8\",\"label\":\"Default\"},{\"id\":\"33beabf2-fdc8-41de-ace4-89653e5baf05\",\"name\":\"kube-network\",\"region\":null,\"default\":false,\"cidr\":\"10.171.8.0/24\",\"label\":\"kube-network\"}]",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "277",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 16:16:58 GMT",
+        "Etag": "\"5b230a32636784a516d0efed4f3e5990\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570465023.6085222; path=/; max-age=10; expires=Mon, 07 Oct 2019 16:17:08 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570465020",
+        "X-Request-Id": "0e0473c2-d5b5-441b-afb1-dc7f0c559e29",
+        "X-Runtime": "0.018002"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

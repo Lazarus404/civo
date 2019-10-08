@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "{\"tls_key\":null,\"tls_certificate\":null,\"protocol\":null,\"port\":\"80\",\"policy\":\"random\",\"max_request_size\":20,\"max_conns\":10,\"ignore_invalid_backend_tls\":true,\"hostname\":\"test.example.co.uk\",\"health_check_path\":\"/\",\"fail_timeout\":30,\"backends\":[{\"protocol\":\"https\",\"port\":443,\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\"}]}",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "put",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/loadbalancers/6b922e4a-e148-4767-9ce8-09745d753640"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"6b922e4a-e148-4767-9ce8-09745d753640\",\"default_hostname\":false,\"hostname\":\"test.example.co.uk\",\"protocol\":\"http\",\"port\":80,\"max_request_size\":20,\"tls_certificate\":null,\"tls_key\":null,\"policy\":\"random\",\"health_check_path\":\"/\",\"fail_timeout\":30,\"max_conns\":10,\"ignore_invalid_backend_tls\":true,\"backends\":[{\"id\":\"65750b89-2084-4da6-9ca9-887f1248770f\",\"load_balancer_id\":\"6b922e4a-e148-4767-9ce8-09745d753640\",\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\",\"port\":443,\"protocol\":\"https\",\"created_at\":\"2019-10-08T16:43:27.000+01:00\",\"updated_at\":\"2019-10-08T16:43:27.000+01:00\",\"deleted_at\":null},{\"id\":\"65750b89-2084-4da6-9ca9-887f1248770f\",\"load_balancer_id\":\"6b922e4a-e148-4767-9ce8-09745d753640\",\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\",\"port\":443,\"protocol\":\"https\",\"created_at\":\"2019-10-08T16:43:27.000+01:00\",\"updated_at\":\"2019-10-08T16:43:27.000+01:00\",\"deleted_at\":null}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "902",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Tue, 08 Oct 2019 15:43:27 GMT",
+        "Etag": "\"89ee5d0c766120029ed9ea8a5c97a759\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570549412.4733021; path=/; max-age=10; expires=Tue, 08 Oct 2019 15:43:37 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Request-Id": "e9e84cd5-b333-440d-8229-c353cbcd0170",
+        "X-Runtime": "0.032625"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

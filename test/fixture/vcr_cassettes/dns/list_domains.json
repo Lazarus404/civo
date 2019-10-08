@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/dns?"
+    },
+    "response": {
+      "binary": false,
+      "body": "[{\"id\":\"15f2852e-5f87-43a6-91bf-e132d604dd76\",\"account_id\":\"b6221a9e-a5e8-4ba4-46b3-be4445c7fb7c\",\"name\":\"jah.red\"},{\"id\":\"f43e2334-2e20-4907-6e50-aabe34e2b2cb\",\"account_id\":\"b60a1a9e-a5e8-4ba4-46b3-be0be5c7fb7c\",\"name\":\"domain.com\"},{\"id\":\"96d6913e-8aab-4d07-ae5b-526aae92014d\",\"account_id\":\"b6221a9e-a5e8-4ba4-46b3-be4445c7fb7c\",\"name\":\"domain2.com\"}]",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "350",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 20:14:53 GMT",
+        "Etag": "\"8b03222adb5f0fbfbf2147f7f65cbb9a\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570479298.3605607; path=/; max-age=10; expires=Mon, 07 Oct 2019 20:15:03 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Request-Id": "7f1da8d1-c888-4fc8-aeea-c6427ab2d423",
+        "X-Runtime": "0.014588"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

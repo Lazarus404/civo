@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"target_nodes_size\":\"g2.xsmall\",\"tags\":\"\",\"num_target_nodes\":3,\"name\":\"test\",\"kubernetes_version\":null}",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/kubernetes/clusters"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"be80b74c-f6ee-4a4e-ab6c-fc0ce2885daa\",\"name\":\"test\",\"version\":\"2\",\"status\":\"NEW\",\"ready\":false,\"num_target_nodes\":3,\"target_nodes_size\":\"g2.xsmall\",\"built_at\":null,\"kubeconfig\":null,\"kubernetes_version\":\"0.8.1\",\"api_endpoint\":null,\"dns_entry\":\"be80b74c-f6ee-4a4e-ab6c-fc0ce2885daa.k8s.civo.com\",\"tags\":[],\"created_at\":\"2019-10-07T19:51:45.000+01:00\",\"instances\":[],\"installed_applications\":[{\"application\":\"Traefik\",\"title\":null,\"version\":\"(default)\",\"dependencies\":null,\"maintainer\":\"@Rancher_Labs\",\"description\":\"A reverse proxy/load-balancer that's easy, dynamic, automatic, fast, full-featured, open source, production proven and provides metrics.\",\"post_install\":\"## Traefik - Default ingress controller\\n\\n### External access to your services\\n\\nTraefik is installed in K3s as the default ingress controller. To use it for your applications all you have to do is apply a YAML file like the one below to handle ingress:\\n\\n```\\napiVersion: extensions/v1beta1\\nkind: Ingress\\nmetadata:\\n  name: yourapp-ingress\\n  namespace: default\\n  annotations:\\n    kubernetes.io/ingress.class: traefik\\nspec:\\n  rules:\\n  - host: www.example.com\\n    http:\\n      paths:\\n      - path: /\\n        backend:\\n          serviceName: yourapp-service\\n          servicePort: http\\n```\\n\\nThis will open up http://www.example.com (assuming you pointed that non-real domain record to your cluster's IPs) to the whole world.\\n\",\"installed\":true,\"url\":\"https://traefik.io\",\"category\":\"architecture\",\"updated_at\":\"2019-10-07T19:51:45.000+01:00\",\"image_url\":\"https://api.civo.com/k3s-marketplace/traefik.png\",\"plan\":null,\"configuration\":{}}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "1632",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 18:51:45 GMT",
+        "Etag": "\"b6c159c132b863d542d730e51f6b51b2\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570474310.450142; path=/; max-age=10; expires=Mon, 07 Oct 2019 18:51:55 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570474320",
+        "X-Request-Id": "81437aa6-fe50-4b88-be1d-b48cf3e715b8",
+        "X-Runtime": "0.087183"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "{\"tls_key\":null,\"tls_certificate\":null,\"protocol\":null,\"port\":\"80\",\"policy\":\"random\",\"max_request_size\":20,\"max_conns\":10,\"ignore_invalid_backend_tls\":true,\"hostname\":\"test.example.com\",\"health_check_path\":\"/\",\"fail_timeout\":30,\"backends\":[{\"protocol\":\"http\",\"port\":80,\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\"}]}",
+      "headers": {
+        "authorization": "Bearer 50m34p1c0d3th4td035ntw0rk",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.civo.com/v2/loadbalancers"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"6b922e4a-e148-4767-9ce8-09745d753640\",\"default_hostname\":false,\"hostname\":\"test.example.com\",\"protocol\":\"http\",\"port\":80,\"max_request_size\":20,\"tls_certificate\":null,\"tls_key\":null,\"policy\":\"random\",\"health_check_path\":\"/\",\"fail_timeout\":30,\"max_conns\":10,\"ignore_invalid_backend_tls\":true,\"backends\":[{\"id\":\"dabe2e9c-1640-4690-8bed-c08408c15cd4\",\"load_balancer_id\":\"6b922e4a-e148-4767-9ce8-09745d753640\",\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\",\"port\":80,\"protocol\":\"http\",\"created_at\":\"2019-10-08T16:40:25.000+01:00\",\"updated_at\":\"2019-10-08T16:40:25.000+01:00\",\"deleted_at\":null},{\"id\":\"dabe2e9c-1640-4690-8bed-c08408c15cd4\",\"load_balancer_id\":\"6b922e4a-e148-4767-9ce8-09745d753640\",\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\",\"port\":80,\"protocol\":\"http\",\"created_at\":\"2019-10-08T16:40:25.000+01:00\",\"updated_at\":\"2019-10-08T16:40:25.000+01:00\",\"deleted_at\":null}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "896",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Tue, 08 Oct 2019 15:40:25 GMT",
+        "Etag": "\"d75af582c22f1286937af6f18faff920\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570549230.5390253; path=/; max-age=10; expires=Tue, 08 Oct 2019 15:40:35 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Request-Id": "1b9f60e7-7ea6-4b45-90c0-3c19bb790340",
+        "X-Runtime": "0.100607"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

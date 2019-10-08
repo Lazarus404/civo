@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "authorization": "Bearer 50m3r4nd0m4p1c0d3"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 50000,
+        "connect_timeout": 50000
+      },
+      "request_body": "",
+      "url": "https://api.civo.com/v2/instances?page=1&per_page=20&tags="
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"page\":1,\"per_page\":20,\"pages\":1,\"items\":[{\"id\":\"9b08b1b4-7bc0-4fd1-9d09-8bc6a2565514\",\"openstack_server_id\":\"c450174d-2198-416d-b64f-3a71ab0d82f0\",\"hostname\":\"example.domain.com\",\"reverse_dns\":null,\"size\":\"g1.xsmall\",\"region\":\"lon1\",\"network_id\":\"eeb8e10b-4421-456d-537d-2cbbe5822e64\",\"public_ip\":\"185.136.219.213\",\"private_ip\":\"10.0.0.5\",\"pseudo_ip\":\"172.31.0.210\",\"template_id\":\"62f9c8a5-c3aa-0173-afad-44e1ee01ed43\",\"snapshot_id\":null,\"initial_user\":\"ubuntu\",\"initial_password\":\"PEIvU5r1ElKg9iRF\",\"ssh_key\":\"1d5f6574-5c71-4922-721a-38a29dd36874\",\"status\":\"ACTIVE\",\"notes\":null,\"firewall_id\":\"afc6936f-c6c1-4009-ac91-a70096b5b5f0\",\"tags\":[\"test\"],\"civostatsd_token\":\"badadada-b001-439a-92df-fbd42784b0f1\",\"civostatsd_stats\":null,\"civostatsd_stats_per_minute\":[],\"civostatsd_stats_per_hour\":[],\"openstack_image_id\":\"6378363e-ca9c-42a8-bc02-d60e302bc9b2\",\"rescue_password\":null,\"volume_backed\":null,\"created_at\":\"2018-12-03T23:41:05.000+00:00\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Content-Length": "43711",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 07 Oct 2019 13:34:50 GMT",
+        "Etag": "\"f7aac6194ca9ac254db8626a63b8590d\"",
+        "Server": "WEBrick/1.4.2 (Ruby/2.6.5/2019-10-01)",
+        "Set-Cookie": "_mkra_stck=mysql%3A1570455295.6865723; path=/; max-age=10; expires=Mon, 07 Oct 2019 13:35:00 -0000; HttpOnly",
+        "Vary": "Accept-Encoding",
+        "X-Ratelimit-Limit": "50",
+        "X-Ratelimit-Remaining": "49",
+        "X-Ratelimit-Reset": "1570455300",
+        "X-Request-Id": "3a9f20c5-0237-42c1-adef-64c2d7e7bf4d",
+        "X-Runtime": "0.077544"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
