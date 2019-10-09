@@ -18,6 +18,15 @@ def deps do
 end
 ```
 
+Once installed, you need to add your API key to your applications `config.exs`
+
+```
+config :civo,
+  api_token: "50m34p1c0d3th4td035ntw0rk"
+```
+
+Your API key can be obtained by visiting [Civo's API documentation page](https://www.civo.com/api) while logged in.
+
 ## Documentation
 
 Complete documentation is available [here](https://hexdocs.pm/civo/).
