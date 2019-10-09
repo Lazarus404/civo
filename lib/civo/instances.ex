@@ -68,6 +68,29 @@ defmodule Civo.Instances do
 
   @doc """
   Lists available VM sizes supported by Civo.
+
+  ### Request
+  This request doesn't take any parameters.
+
+  ### Response
+  The response from the server will be a JSON array of sizes, 
+  each with a name and the appropriate attributes.
+
+  ```elixir
+  [
+    {
+      "id": "d6b170f2-d2b3-4205-84c4-61898622393d",
+      "name": "micro",
+      "nice_name": "Micro",
+      "cpu_cores": 1,
+      "ram_mb": 1024,
+      "disk_gb": 25,
+      "description": "Micro - 1GB RAM, 1 CPU Core, 25GB SSD Disk",
+      "selectable": true
+    },
+    // ...
+  ]
+  ```
   """
   def available_sizes(),
     do: Civo.get("sizes")
@@ -84,6 +107,24 @@ defmodule Civo.Instances do
   Instances are built from a template, which may be just a base operating 
   system such as ubuntu-14.04, or it may be a ready configured application 
   or control panel hosting system.
+
+  ### Request
+  The following parameter(s) should be sent along with the request:
+
+  | Name | Description |
+  | ---- | ----------- |
+  | `count` | the number of instances to create (optional, default is 1) |
+  | `hostname` | a fully qualified domain name that should be set as the instance's hostname (required) |
+  | `reverse_dns` | a fully qualified domain name that should be used as the instance's IP's reverse DNS (optional, uses the hostname if unspecified) |
+  | `size` | the name of the size, from the current list, e.g. "g2.small" (required) |
+  | `region` | the identifier for the region, from the current region (optional; a random one will be picked by the system) |
+  | `public_ip` | this should be either none, create or from. If from is specified then the move_ip_from parameter should also be specified (and contain the ID of the instance that will be releasing its IP). As aliases true will be treated the same as create and false will be treated the same as none. If create or true is specified it will automatically allocate an initial public IP address, rather than having to add the first one later (optional; default is create) |
+  | `network_id` | this must be the ID of the network from the network listing (optional; default network used when not specified) |
+  | `template_id` | the ID for the template to use to build the instance, from the current templates. Parameter also accepted as template. (optional; but must be specified if no snapshot is specified) |
+  | `snapshot_id` | the ID for the snapshot to use to build the instance, from your snapshots (optional; but must be specified if no template is specified) |
+  | `initial_user` | the name of the initial user created on the server (optional; this will default to the template's default_username and fallback to "civo") |
+  | `ssh_key_id` | the ID of an already uploaded SSH public key to use for login to the default user (optional; if one isn't provided a random password will be set and returned in the initial_password field) |
+  | `tags` | a space separated list of tags, to be used freely as required (optional) |
 
   ### Response
   The response is a JSON object that describes the initial setup of the 
@@ -142,9 +183,9 @@ defmodule Civo.Instances do
 
   | Name      | Description |
   | --------- | ----------- |
-  | tags      | a space separated list of tags, to be used freely as required. If multiple are supplied, instances must much all tags to be returned (not one or more) |
-  | page      | which page of results to return (defaults to 1) |
-  | per_page  | how many instances to return per page (defaults to 20) |
+  | `tags`      | a space separated list of tags, to be used freely as required. If multiple are supplied, instances must much all tags to be returned (not one or more) |
+  | `page`      | which page of results to return (defaults to 1) |
+  | `per_page`  | how many instances to return per page (defaults to 20) |
 
   ### Response
   The response is a JSON array of objects that describes summary details 
@@ -285,7 +326,8 @@ defmodule Civo.Instances do
 
   | Name    | Description |
   | ------- | ----------- |
-  | tags    | a space separated list of tags, to be used freely as required (optional) |
+  | `id`    | the id of the instance to retag. |
+  | `tags`  | a space separated list of tags, to be used freely as required (optional) |
 
   ### Response
   The response is a JSON object that simply acknowledges the request.
@@ -389,6 +431,13 @@ defmodule Civo.Instances do
   A user can resize an instance upwards, providing it's within 
   their quota. The size of the instance is from a list of sizes.
 
+  ### Request
+
+  | Name    | Description |
+  | ------- | ----------- |
+  | `id`    | the id of the instance to retag. |
+  | `size`  | the new size identifier (see `available_sizes`) |
+
   ### Response
   The response is a JSON object that describes the initial setup 
   of the instance, these details may not be returned in future calls 
@@ -416,8 +465,8 @@ defmodule Civo.Instances do
 
   | Name         | Description |
   | ------------ | ----------- |
-  | id           | the ID of the instance to attach the firewall |
-  | firewall_id  | the ID of the firewall to use, from the current list. If left blank or not sent, the default firewall will be used (open to all) |
+  | `id`         | the ID of the instance to attach the firewall |
+  | `firewall_id` | the ID of the firewall to use, from the current list. If left blank or not sent, the default firewall will be used (open to all) |
 
   ### Response
   The response is a JSON object that simply acknowledges the request.
@@ -439,8 +488,8 @@ defmodule Civo.Instances do
   can move the public IP.
 
   ### Request
-  The required parameter are the target instance ID (:id) and 
-  the public IP address (:ip_address). You must own both instances 
+  The required parameter are the target instance ID and 
+  the public IP address. You must own both instances 
   and the target instance must not already have a public IP.
 
   ### Response

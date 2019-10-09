@@ -4,7 +4,7 @@ defmodule Civo.Firewalls do
   their Instances using either iptables which is powerful or Uncomplicated 
   Firewall/ufw which is much simpler but only works on Ubuntu.
 
-  As an another option, customers can configure custom firewall rules for 
+  As another option, customers can configure custom firewall rules for 
   their instances using the Firewall API which adjusts the security group 
   for your network of instances. These are a freely configurable option, 
   however customers should be careful to not lock out their access to the 
@@ -46,11 +46,10 @@ defmodule Civo.Firewalls do
   will require and it can be increased if required.
 
   ### Request
-  There are no URL parameters and only one POST parameter
-
+  
   | Name | Description |
   | ---- | ----------- |
-  | name | A unique name for this firewall within your account |
+  | `name` | A unique name for this firewall within your account |
 
   ### Response
   The response is a JSON object that confirms the details given, 
@@ -77,19 +76,20 @@ defmodule Civo.Firewalls do
   most customers will require and it can be increased if required.
 
   ### Request
-  The following parameter are required for setting firewall rules 
+  The following parameters are required for setting firewall rules 
   (note: there's no allow/deny choice as the default for a new 
   firewall is to deny everything, so you only need to open the 
   ports/port ranges needed):
 
   | Name | Description |
   | ---- | ----------- |
-  | protocol | the protocol choice from tcp, udp or icmp (the default if unspecified is tcp) |
-  | start_port | the start of the port range to configure for this rule (or the single port if required) |
-  | end_port | the end of the port range (this is optional, by default it will only apply to the single port listed in start_port) |
-  | cidr | the IP address of the other end (i.e. not your instance) to affect, or a valid network CIDR (defaults to being globally applied, i.e. 0.0.0.0/0) |
-  | direction | will this rule affect inbound or outbound traffic (by default this is inbound) |
-  | label | a string that will be the displayed name/reference for this rule (optional) |
+  | `id` | the id of the firewall to apply the rules to. |
+  | `protocol` | the protocol choice from tcp, udp or icmp (the default if unspecified is tcp) |
+  | `start_port` | the start of the port range to configure for this rule (or the single port if required) |
+  | `end_port` | the end of the port range (this is optional, by default it will only apply to the single port listed in start_port) |
+  | `cidr` | the IP address of the other end (i.e. not your instance) to affect, or a valid network CIDR (defaults to being globally applied, i.e. 0.0.0.0/0) |
+  | `direction` | will this rule affect inbound or outbound traffic (by default this is inbound) |
+  | `label` | a string that will be the displayed name/reference for this rule (optional) |
 
   ### Response
   The response is a JSON object that confirms the details given, 
@@ -192,8 +192,8 @@ defmodule Civo.Firewalls do
   instance_count and delete them, or their take up quota allocation.
 
   ### Request
-  This request takes no parameters except the ID of the firewall 
-  to delete is in the URL. No confirmation step is required, 
+  This request takes the ID of the firewall 
+  to delete. No confirmation step is required, 
   this step will remove the firewall immediately.
 
   ### Response

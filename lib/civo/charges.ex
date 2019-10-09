@@ -19,8 +19,8 @@ defmodule Civo.Charges do
 
   | Name | Description |
   | ---- | ----------- |
-  | from | The from date in RFC 3339 format (default to the start of the current month) |
-  | to | The to date in RFC 3339 format (defaults to the current time) |
+  | `from` | The from date in RFC 3339 format (default to the start of the current month) |
+  | `to` | The to date in RFC 3339 format (defaults to the current time) |
 
   ### Response
   The response from the server will be a list of chargeable resources. 

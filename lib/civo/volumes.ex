@@ -31,13 +31,13 @@ defmodule Civo.Volumes do
 
   Request
   The only required parameters are the name of the volume and the 
-  size required in gigabytes as a body parameter.
+  size required in gigabytes.
 
   | Name | Description |
   | ---- | ----------- |
-  | name | A name that you wish to use to refer to this volume (required) |
-  | size_gb | A minimum of 1 and a maximum of your available disk space from your quota specifies the size of the volume in gigabytes (required). |
-  | bootable | Mark the volume as bootable with a boolean (optional; defaults to false). |
+  | `name` | A name that you wish to use to refer to this volume (required) |
+  | `size_gb` | A minimum of 1 and a maximum of your available disk space from your quota specifies the size of the volume in gigabytes (required). |
+  | `bootable` | Mark the volume as bootable with a boolean (optional; defaults to false). |
 
   ### Response
   The response is a JSON object that confirms the details given, 
@@ -97,12 +97,13 @@ defmodule Civo.Volumes do
   filesystem afterwards.
 
   ### Request
-  The only required parameters are the id of the volume in the 
-  URL and the new size required in gigabytes as a body parameter.
+  The only required parameters are the id of the volume and 
+  the new size required in gigabytes.
 
   | Name | Description |
   | ---- | ----------- |
-  | size_gb | A minimum of the existing size of the volume plus 1 and a maximum of your available disk space from your quota specifies the size of the volume in gigabytes (required). |
+  | `id` | the id of the volume (required). |
+  | `size_gb` | A minimum of the existing size of the volume plus 1 and a maximum of your available disk space from your quota specifies the size of the volume in gigabytes (required). |
 
   ### Response
   The response is a simple JSON object that confirms the success of the call.
@@ -128,12 +129,13 @@ defmodule Civo.Volumes do
   formatting and mounting).
 
   ### Request
-  The required parameters are the id of the volume in the URL 
-  and the ID of the instance as a body parameter.
+  The required parameters are the id of the volume 
+  and the ID of the instance.
 
   | Name | Description |
   | ---- | ----------- |
-  | instance_id | The ID of an instance that you wish to attach this volume to (required) |
+  | `id` | the id of the volume (required). |
+  | `instance_id` | the id of an instance that you wish to attach this volume to (required) |
 
   ### Response
   The response is a JSON object that confirms the details given, 
@@ -162,7 +164,7 @@ defmodule Civo.Volumes do
   corruption).
 
   ### Request
-  The only required parameter is the ID of the volume in the URL.
+  The only required parameter is the ID of the volume.
 
   ### Response
   The response is a JSON object that confirms the action is being 
@@ -188,8 +190,8 @@ defmodule Civo.Volumes do
   space used (and therefore the cost).
 
   ### Request
-  This request takes no parameters, only the ID of the volume 
-  to delete is in the URL. No confirmation step is required, 
+  This request takes the ID of the volume 
+  to delete. No confirmation step is required, 
   this step will remove the volume immediately.
 
   ### Response

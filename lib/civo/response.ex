@@ -1,10 +1,16 @@
 defmodule Civo.Response do
+  @moduledoc """
+  A struct representing a Civo API response.
+  """
   alias Civo.Error
 
   defstruct body: nil, status: 500, request: nil
 
   @type t :: %__MODULE__{}
 
+  @doc """
+  Parses an HTTPoison response to a Civo one.
+  """
   @spec parse(
           {:ok, HTTPoison.Response.t() | HTTPoison.AsyncResponse.t()}
           | {:error, HTTPoison.Error.t()},

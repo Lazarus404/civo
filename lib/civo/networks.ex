@@ -14,7 +14,7 @@ defmodule Civo.Networks do
 
   | Name | Description |
   | ---- | ----------- |
-  | label | a string that will be the displayed name/reference for the network. |
+  | `label` | a string that will be the displayed name/reference for the network. |
 
   ### Response
   The response from the server will just be a confirmation of success.
@@ -89,7 +89,7 @@ defmodule Civo.Networks do
   there are no instances using it.
 
   ### Request
-  This request doesn't take any parameters other than the ID.
+  This request takes an ID parameter.
 
   ### Response
   The response from the server will be a JSON block. The response 

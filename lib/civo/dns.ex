@@ -7,9 +7,9 @@ defmodule Civo.DNS do
   This API is effectively split in to two parts: 1) Managing domain 
   names themselves, and 2) Managing records within those domain names.
 
-  Civo don't offer registration of domains names, this is purely for 
+  Civo don't offer registration of domain names, this is purely for 
   hosting the DNS. If you're looking to buy a domain name, Civo 
-  recommends LCN.com for their excellent friendly support and very 
+  recommends [LCN.com](http://lcn.com) for their excellent friendly support and very 
   competitive prices.
   """
   #  the choice of RR type from a, cname, mx or txt
@@ -64,16 +64,16 @@ defmodule Civo.DNS do
   Create a domain from an account.
 
   Any user can add a domain name (that has been registered elsewhere) 
-  to be managed by Civo.com. You should adjust the nameservers of 
+  to be managed by [Civo.com](http://civo.com). You should adjust the nameservers of 
   your domain (through your registrar) to point to `ns0.civo.com` and 
   `ns1.civo.com`.
 
   ### Request
-  There are no URL parameters and only one POST parameter
+  There is a single parameter.
 
   | Name | Description |
   | ---- | ----------- |
-  | name | the domain name, e.g. "example.com" |
+  | `name` | the domain name, e.g. "example.com" |
 
   ### Response
   The response is a JSON object that confirms the details given, with an id ready for you to add records to the domain.
@@ -96,11 +96,12 @@ defmodule Civo.DNS do
   After creating a custom domain, any user can update their domain.
 
   ### Request
-  The following parameter(s) should be sent along with the request:
+  The following parameters should be sent along with the request:
 
   | Name | Description |
   | ---- | ----------- |
-  | name | the domain name, e.g. "example.com" |
+  | `id` | the id of the domain entry to update. |
+  | `name` | the domain name, e.g. "example.com" |
 
   ### Response
   The response is a JSON object that simply confirms that the domain was updated.
@@ -127,8 +128,8 @@ defmodule Civo.DNS do
   remove all DNS records.
 
   ### Request
-  This request takes no parameters except the ID of the domain to 
-  delete is in the URL. No confirmation step is required, this step 
+  This request takes the ID of the domain to 
+  delete. No confirmation step is required, this step 
   will remove the domain and all records immediately.
 
   ### Response
@@ -192,15 +193,16 @@ defmodule Civo.DNS do
   An account holder can create DNS records for a specific domain.
 
   ### Request
-  The following parameter are required for setting DNS records:
+  The following parameters are required for setting DNS records:
 
   | Name | Description |
   | ---- | ----------- |
-  | type | the choice of RR type from a, cname, mx or txt |
-  | name | the portion before the domain name (e.g. www) or an @ for the apex/root domain (you cannot use an A record with an amex/root domain) |
-  | value | the IP address (A or MX), hostname (CNAME or MX) or text value (TXT) to serve for this record |
-  | priority | useful for MX records only, the priority mail should be attempted it (defaults to 10) |
-  | ttl | how long caching DNS servers should cache this record for, in seconds (the minimum is 600 and the default if unspecified is 600) |
+  | `domain_id` | the id of the domain to use for the DNS. |
+  | `type` | the choice of RR type from a, cname, mx or txt |
+  | `name` | the portion before the domain name (e.g. www) or an @ for the apex/root domain (you cannot use an A record with an amex/root domain) |
+  | `value` | the IP address (A or MX), hostname (CNAME or MX) or text value (TXT) to serve for this record |
+  | `priority` | useful for MX records only, the priority mail should be attempted it (defaults to 10) |
+  | `ttl` | how long caching DNS servers should cache this record for, in seconds (the minimum is 600 and the default if unspecified is 600) |
 
   ### Response
   The response is a JSON object that confirms the details given..
@@ -232,15 +234,17 @@ defmodule Civo.DNS do
   After creating a DNS record, any user can update their DNS record.
 
   ### Request
-  The following parameter(s) should be sent along with the request:
+  The following parameters should be sent along with the request:
 
   | Name | Description |
   | ---- | ----------- |
-  | type | the choice of RR type from a, cname, mx or txt |
-  | name | the portion before the domain name (e.g. www) or an @ for the apex/root domain (you cannot use an A record with an amex/root domain) |
-  | value | the IP address (A or MX), hostname (CNAME or MX) or text value (TXT) to serve for this record |
-  | priority | useful for MX records only, the priority mail should be attempted it (defaults to 10) |
-  | ttl | how long caching DNS servers should cache this record for, in seconds (the minimum is 600 and the default if unspecified is 600) |
+  | `id` | the id of the DNS entry to update. |
+  | `domain_id` | the id of the domain to use for the DNS. |
+  | `type` | the choice of RR type from a, cname, mx or txt |
+  | `name` | the portion before the domain name (e.g. www) or an @ for the apex/root domain (you cannot use an A record with an amex/root domain) |
+  | `value` | the IP address (A or MX), hostname (CNAME or MX) or text value (TXT) to serve for this record |
+  | `priority` | useful for MX records only, the priority mail should be attempted it (defaults to 10) |
+  | `ttl` | how long caching DNS servers should cache this record for, in seconds (the minimum is 600 and the default if unspecified is 600) |
 
   ### Response
   The response is a JSON object that simply confirms that the DNS 
@@ -273,8 +277,8 @@ defmodule Civo.DNS do
   An account holder can remove a DNS record from a domain.
 
   ### Request
-  This request takes no parameters, the ID of the DNS record to 
-  delete and the ID of the domain are in the URL. No confirmation 
+  This request takes the ID of the DNS record to 
+  delete and the ID of the domain. No confirmation 
   step is required, this step will remove the DNS record 
   immediately.
 

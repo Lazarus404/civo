@@ -37,11 +37,11 @@ defmodule Civo.Kubernetes do
 
   | Name  | Description |
   | ----- | ----------- |
-  | name  | a name for your cluster, must be unique within your account (required) |
-  | num_target_nodes | the number of instances to create (optional, the default at the time of writing is 3) |
-  | target_nodes_size | the size of each node (optional, the default is currently g2.small) |
-  | kubernetes_version | the version of k3s to install (optional, the default is currently the latest available) |
-  | tags | a space separated list of tags, to be used freely as required (optional) |
+  | `name` | a name for your cluster, must be unique within your account (required) |
+  | `num_target_nodes` | the number of instances to create (optional, the default at the time of writing is 3) |
+  | `target_nodes_size` | the size of each node (optional, the default is currently g2.small) |
+  | `kubernetes_version` | the version of k3s to install (optional, the default is currently the latest available) |
+  | `tags` | a space separated list of tags, to be used freely as required (optional) |
 
   ### Response
   The response is a JSON object that describes the initial setup of the cluster, future calls to get clusters may return more information (as underlying nodes are created, applications are installed, etc).
@@ -137,9 +137,10 @@ defmodule Civo.Kubernetes do
 
   | Name | Description |
   | ---- | ----------- |
-  | name | the cluster's new name |
-  | num_target_nodes | how many nodes should the cluster scale to. |
-  | applications | a comma separated list of applications to install. Spaces within application names are fine, but shouldn't be either side of the comma. |
+  | `id` | the id of the cluster to update. |
+  | `name` | the cluster's new name |
+  | `num_target_nodes` | how many nodes should the cluster scale to. |
+  | `applications` | a comma separated list of applications to install. Spaces within application names are fine, but shouldn't be either side of the comma. |
 
   ### Response
   The response is a JSON object that contains the updated cluster 

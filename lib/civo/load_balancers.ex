@@ -3,7 +3,7 @@ defmodule Civo.LoadBalancers do
   If you want to create a load balancer for your instances, to 
   spread your web traffic between them then you can easily launch 
   a managed load balancer service on Civo. The pricing is described 
-  on our pricing page.
+  on their pricing page.
   """
   #  the hostname to receive traffic for, e.g. "www.example.com" (optional: sets hostname to loadbalancer-uuid.civo.com if blank)
   defstruct hostname: nil,
@@ -97,23 +97,23 @@ defmodule Civo.LoadBalancers do
   `185.136.233.140`.
 
   ### Request
-  There are no URL parameters, but the following POST parameters should be sent
+  The following parameters should be sent
 
   | Name | Description |
   | ---- | ----------- |
-  | ID   | the id of the load balancer |
-  | hostname | the hostname to receive traffic for, e.g. "www.example.com" (optional: sets hostname to loadbalancer-uuid.civo.com if blank) |
-  | protocol | either http or https. If you specify https then you must also provide the next two fields, the default is "http" |
-  | tls_certificate | if your protocol is https then you should send the TLS certificate in Base64-encoded PEM format |
-  | tls_key | if your protocol is https then you should send the TLS private key in Base64-encoded PEM format |
-  | port | you can listen on any port, the default is "80" to match the default protocol of "http", if not you must specify it here (commonly 80 for HTTP or 443 for HTTPS) |
-  | max_request_size | the size in megabytes of the maximum request content that will be accepted, defaults to 20 |
-  | policy | one of: least_conn (sends new requests to the least busy server), random (sends new requests to a random backend), round_robin (sends new requests to the next backend in order), ip_hash (sends requests from a given IP address to the same backend), default is "random" |
-  | health_check_path | what URL should be used on the backends to determine if it's OK (2xx/3xx status), defaults to "/" |
-  | fail_timeout | how long to wait in seconds before determining a backend has failed, defaults to 30 |
-  | max_conns | how many concurrent connections can each backend handle, defaults to 10 |
-  | ignore_invalid_backend_tls | should self-signed/invalid certificates be ignored from the backend servers, defaults to true |
-  | backends | a list of backend instances, each containing an instance_id, protocol (http or https) and port |
+  | `id` | the id of the load balancer |
+  | `hostname` | the hostname to receive traffic for, e.g. "www.example.com" (optional: sets hostname to loadbalancer-uuid.civo.com if blank) |
+  | `protocol` | either http or https. If you specify https then you must also provide the next two fields, the default is "http" |
+  | `tls_certificate` | if your protocol is https then you should send the TLS certificate in Base64-encoded PEM format |
+  | `tls_key` | if your protocol is https then you should send the TLS private key in Base64-encoded PEM format |
+  | `port` | you can listen on any port, the default is "80" to match the default protocol of "http", if not you must specify it here (commonly 80 for HTTP or 443 for HTTPS) |
+  | `max_request_size` | the size in megabytes of the maximum request content that will be accepted, defaults to 20 |
+  | `policy` | one of: least_conn (sends new requests to the least busy server), random (sends new requests to a random backend), round_robin (sends new requests to the next backend in order), ip_hash (sends requests from a given IP address to the same backend), default is "random" |
+  | `health_check_path` | what URL should be used on the backends to determine if it's OK (2xx/3xx status), defaults to "/" |
+  | `fail_timeout` | how long to wait in seconds before determining a backend has failed, defaults to 30 |
+  | `max_conns` | how many concurrent connections can each backend handle, defaults to 10 |
+  | `ignore_invalid_backend_tls` | should self-signed/invalid certificates be ignored from the backend servers, defaults to true |
+  | `backends` | a list of backend instances, each containing an instance_id, protocol (http or https) and port |
 
   ### Response
   The response is a JSON object that confirms the details given.
@@ -154,23 +154,23 @@ defmodule Civo.LoadBalancers do
   as setting up a load balancer
 
   ### Request
-  There are no URL parameters, but the following POST parameters should be sent
+  The following parameters should be sent
 
   | Name | Description |
   | ---- | ----------- |
-  | ID   | the id of the load balancer |
-  | hostname | the hostname to receive traffic for, e.g. "www.example.com" (optional: sets hostname to loadbalancer-uuid.civo.com if blank) |
-  | protocol | either http or https. If you specify https then you must also provide the next two fields, the default is "http" |
-  | tls_certificate | if your protocol is https then you should send the TLS certificate in Base64-encoded PEM format |
-  | tls_key | if your protocol is https then you should send the TLS private key in Base64-encoded PEM format |
-  | port | you can listen on any port, the default is "80" to match the default protocol of "http", if not you must specify it here (commonly 80 for HTTP or 443 for HTTPS) |
-  | max_request_size | the size in megabytes of the maximum request content that will be accepted, defaults to 20 |
-  | policy | one of: least_conn (sends new requests to the least busy server), random (sends new requests to a random backend), round_robin (sends new requests to the next backend in order), ip_hash (sends requests from a given IP address to the same backend), default is "random" |
-  | health_check_path | what URL should be used on the backends to determine if it's OK (2xx/3xx status), defaults to "/" |
-  | fail_timeout | how long to wait in seconds before determining a backend has failed, defaults to 30 |
-  | max_conns | how many concurrent connections can each backend handle, defaults to 10 |
-  | ignore_invalid_backend_tls | should self-signed/invalid certificates be ignored from the backend servers, defaults to true |
-  | backends | a list of backend instances, each containing an instance_id, protocol (http or https) and port |
+  | `id` | the id of the load balancer |
+  | `hostname` | the hostname to receive traffic for, e.g. "www.example.com" (optional: sets hostname to loadbalancer-uuid.civo.com if blank) |
+  | `protocol` | either http or https. If you specify https then you must also provide the next two fields, the default is "http" |
+  | `tls_certificate` | if your protocol is https then you should send the TLS certificate in Base64-encoded PEM format |
+  | `tls_key` | if your protocol is https then you should send the TLS private key in Base64-encoded PEM format |
+  | `port` | you can listen on any port, the default is "80" to match the default protocol of "http", if not you must specify it here (commonly 80 for HTTP or 443 for HTTPS) |
+  | `max_request_size` | the size in megabytes of the maximum request content that will be accepted, defaults to 20 |
+  | `policy` | one of: least_conn (sends new requests to the least busy server), random (sends new requests to a random backend), round_robin (sends new requests to the next backend in order), ip_hash (sends requests from a given IP address to the same backend), default is "random" |
+  | `health_check_path` | what URL should be used on the backends to determine if it's OK (2xx/3xx status), defaults to "/" |
+  | `fail_timeout` | how long to wait in seconds before determining a backend has failed, defaults to 30 |
+  | `max_conns` | how many concurrent connections can each backend handle, defaults to 10 |
+  | `ignore_invalid_backend_tls` | should self-signed/invalid certificates be ignored from the backend servers, defaults to true |
+  | `backends` | a list of backend instances, each containing an instance_id, protocol (http or https) and port |
 
   ### Response
   The response is a JSON object that confirms the details given.

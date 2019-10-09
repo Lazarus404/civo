@@ -32,16 +32,17 @@ defmodule Civo.Snapshots do
   is charged separately from their quota.
 
   ### Request
-  The only required parameters are the instance ID as a body 
-  parameter and the snapshot name in the URL. Two optional 
-  parameters of safe and cron_timing can also be passed. If the 
-  snapshot already exists it will be overwritten.
+  The only required parameters are the instance ID and the 
+  snapshot name. Two optional parameters of safe and cron_timing 
+  can also be passed. If the snapshot already exists it will be 
+  overwritten.
 
   | Name | Description |
   | ---- | ----------- |
-  | instance_id | The ID of the instance to snapshot |
-  | safe | If true the instance will be shut down during the snapshot to ensure all files are in a consistent state (e.g. database tables aren't in the middle of being optimised and hence risking corruption). The default is false so you experience no interruption of service, but a small risk of corruption. |
-  | cron_timing | If a valid cron string is passed, the snapshot will be saved as an automated snapshot, continuing to automatically update based on the schedule of the cron sequence provided. The default is nil meaning the snapshot will be saved as a one-off snapshot. |
+  | `id` | the id of the instance to create a snapshot of. |
+  | `instance_id` | The ID of the instance to snapshot |
+  | `safe` | If true the instance will be shut down during the snapshot to ensure all files are in a consistent state (e.g. database tables aren't in the middle of being optimised and hence risking corruption). The default is false so you experience no interruption of service, but a small risk of corruption. |
+  | `cron_timing` | If a valid cron string is passed, the snapshot will be saved as an automated snapshot, continuing to automatically update based on the schedule of the cron sequence provided. The default is nil meaning the snapshot will be saved as a one-off snapshot. |
 
   ### Response
   The response is a JSON object that confirms the details given, 

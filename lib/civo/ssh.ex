@@ -42,7 +42,7 @@ defmodule Civo.SSH do
   Gets an SSH key instance.
 
   ### Request
-  This request requires only the ID parameter in the URL.
+  This request requires only the ID parameter.
 
   ### Response
   The response is a JSON object that describes the details for the SSH key.
@@ -70,8 +70,8 @@ defmodule Civo.SSH do
 
   | Name  | Description |
   | ----- | ----------- |
-  | name  | a string that will be the OpenStack reference for the SSH key. |
-  | public_key | a string containing the SSH public key. |
+  | `name`  | a string that will be the OpenStack reference for the SSH key. |
+  | `public_key` | a string containing the SSH public key. |
 
   ### Response
   The response from the server will just be a confirmation of success 
@@ -96,8 +96,8 @@ defmodule Civo.SSH do
 
   | Name  | Description |
   | ----- | ----------- |
-  | id    | the ID of the SSH key to update |
-  | name  | a string that will be the OpenStack reference for the SSH key. |
+  | `id`  | the ID of the SSH key to update |
+  | `name` | a string that will be the OpenStack reference for the SSH key. |
 
   ### Response
   The response from the server will be the updated SSH key.
@@ -129,7 +129,7 @@ defmodule Civo.SSH do
   because doing so will immediately remove the SSH key.
 
   ### Request
-  This request doesn't take any parameters other than the key name in the URL.
+  This request takes the key name parameter.
 
   ### Response
   The response from the server will be a JSON block. The response will 
