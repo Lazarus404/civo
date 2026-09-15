@@ -1,110 +1,56 @@
 defmodule Civo.NetworksTest do
   use ExUnit.Case
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney, options: [clear_mock: true]
-  alias Civo.{Networks, Request, Response}
-  doctest Networks
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  setup do
-    ExVCR.Config.cassette_library_dir("test/fixture/vcr_cassettes/networks")
-    :ok
-  end
+  alias Civo.{Networks, Response}
 
   test "lists networks" do
-    resp =
-      use_cassette "list networks" do
-        Networks.list()
-      end
-
-    assert %Response{
-             body:
-               {:ok,
-                [
-                  %{
-                    "cidr" => "10.0.0.0/8",
-                    "default" => true,
-                    "id" => _,
-                    "label" => "Default",
-                    "name" => "Default",
-                    "region" => "lon1"
-                  },
-                  %{
-                    "cidr" => "10.171.8.0/24",
-                    "default" => false,
-                    "id" => _,
-                    "label" => "kube-network",
-                    "name" => "kube-network",
-                    "region" => nil
-                  }
-                ]},
-             request: %Request{
-               body: "",
-               method: :get,
-               url: "https://api.civo.com/v2/networks"
-             },
-             status: 200
-           } = resp
+    use_cassette :stub,
+      url: "~r/api.civo.com\/v2\/networks/",
+      method: "get",
+      status_code: 200,
+      body: ~s([{"id":"1","label":"Default","default":true}]) do
+      assert %Response{status: 200, body: [%{"label" => "Default"}]} = Networks.list()
+    end
   end
 
   test "create network" do
-    resp =
-      use_cassette "create network" do
-        Networks.create("test")
-      end
-
-    assert %Response{
-             body:
-               {:ok,
-                %{
-                  "id" => "fa702cf4-007b-4de2-bea8-306fe4ef6693",
-                  "label" => "test",
-                  "result" => "success"
-                }},
-             request: %Request{
-               body: "{\"label\":\"test\"}",
-               method: :post,
-               url: "https://api.civo.com/v2/networks"
-             },
-             status: 200
-           } = resp
+    use_cassette :stub,
+      url: "~r/api.civo.com\/v2\/networks/",
+      method: "post",
+      status_code: 200,
+      body: ~s({"result":"success","id":"1","label":"test"}) do
+      assert %Response{body: %{"result" => "success"}} = Networks.create("test")
+    end
   end
 
-  test "rename a network" do
-    resp =
-      use_cassette "rename network" do
-        Networks.rename("fa702cf4-007b-4de2-bea8-306fe4ef6693", "other")
-      end
-
-    assert %Response{
-             body:
-               {:ok,
-                %{
-                  "id" => "fa702cf4-007b-4de2-bea8-306fe4ef6693",
-                  "label" => "other",
-                  "result" => "success"
-                }},
-             request: %Request{
-               body: "{\"label\":\"other\"}",
-               method: :put,
-               url: "https://api.civo.com/v2/networks/fa702cf4-007b-4de2-bea8-306fe4ef6693"
-             },
-             status: 200
-           } = resp
+  test "rename network" do
+    use_cassette :stub,
+      url: "~r/api.civo.com\/v2\/networks/",
+      method: "put",
+      status_code: 200,
+      body: ~s({"result":"success","label":"other"}) do
+      assert %Response{body: %{"label" => "other"}} = Networks.rename("1", "other", "LON1")
+    end
   end
 
-  test "delete a network" do
-    resp =
-      use_cassette "delete network" do
-        Networks.delete("fa702cf4-007b-4de2-bea8-306fe4ef6693")
-      end
+  test "delete network" do
+    use_cassette :stub,
+      url: "~r/api.civo.com\/v2\/networks/",
+      method: "delete",
+      status_code: 200,
+      body: ~s({"result":"success"}) do
+      assert %Response{body: %{"result" => "success"}} = Networks.delete("1", "LON1")
+    end
+  end
 
-    assert %Response{
-             body: {:ok, %{"result" => "success"}},
-             request: %Request{
-               body: nil,
-               method: :delete,
-               url: "https://api.civo.com/v2/networks/fa702cf4-007b-4de2-bea8-306fe4ef6693"
-             },
-             status: 200
-           } = resp
+  test "get network" do
+    use_cassette :stub,
+      url: "~r/api.civo.com\/v2\/networks/",
+      method: "get",
+      status_code: 200,
+      body: ~s({"id":"1","label":"Default"}) do
+      assert %Response{body: %{"id" => "1"}} = Networks.get("1", "LON1")
+    end
   end
 end

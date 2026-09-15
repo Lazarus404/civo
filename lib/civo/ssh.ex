@@ -1,150 +1,71 @@
 defmodule Civo.SSH do
   @moduledoc """
-  To manage the SSH keys for an account that are used for 
-  logging in to instances, there are a set of APIs for 
-  listing the SSH public keys currently stored, as well 
-  as adding and removing them by name.
-  """
-  defstruct name: nil, public_key: nil
+  SSH public keys for instance login (`/v2/sshkeys`).
 
-  @type t :: %{
-          name: String.t(),
-          public_key: String.t()
+  Upload a key once, then pass its ID as `ssh_key_id` when creating
+  instances via `Civo.Instances`.
+
+  ## Create fields (`t`)
+
+  | Field | Required | Description |
+  | --- | --- | --- |
+  | `:name` | yes | Display name for the key |
+  | `:public_key` | yes | OpenSSH public key string |
+  """
+
+  @typedoc "Parameters for uploading an SSH key."
+  @type t :: %__MODULE__{
+          name: String.t() | nil,
+          public_key: String.t() | nil
         }
+
+  defstruct name: nil, public_key: nil
 
   @path "sshkeys"
 
   @doc """
-  Lists all SSH keys in the account.
-
-  ### Request
-  This request doesn't take any parameters.
-
-  ### Response
-  The response from the server will be a list of the SSH keys known 
-  for the current account holder.
-
-  ```elixir
-  [
-    {
-      "id": "730c960f-a51f-44e5-9c21-bd135d015d12",
-      "name": "default",
-      "fingerprint": "SHA256:181210f8f9c779c26da1d9b2075bde0127302ee0e3fca38c9a83f5b1dd8e5d3b"
-    }
-  ]
-  ```
+  Lists uploaded SSH keys (`GET /v2/sshkeys`).
   """
   @spec list() :: Civo.Response.t() | Civo.Error.t()
   def list(),
     do: Civo.get(@path)
 
   @doc """
-  Gets an SSH key instance.
-
-  ### Request
-  This request requires only the ID parameter.
-
-  ### Response
-  The response is a JSON object that describes the details for the SSH key.
-
-  ```elixir
-  {
-    "id": "730c960f-a51f-44e5-9c21-bd135d015d12",
-    "name": "default",
-    "fingerprint": "SHA256:181210f8f9c779c26da1d9b2075bde0127302ee0e3fca38c9a83f5b1dd8e5d3b"
-  }
-  ```
+  Fetches an SSH key by `id` (`GET /v2/sshkeys/:id`).
   """
   @spec get(String.t()) :: Civo.Response.t() | Civo.Error.t()
   def get(id),
-    do:
-      @path
-      |> Path.join(id)
-      |> Civo.get()
+    do: @path |> Path.join(id) |> Civo.get()
 
   @doc """
-  Uploads a new SSH Key.
-
-  ### Request
-  The following parameter(s) should be sent along with the request:
-
-  | Name  | Description |
-  | ----- | ----------- |
-  | `name`  | a string that will be the OpenStack reference for the SSH key. |
-  | `public_key` | a string containing the SSH public key. |
-
-  ### Response
-  The response from the server will just be a confirmation of success 
-  and the ID of the new key.
-
-  ```elixir
-  {
-    "result": "success",
-    "id": "730c960f-a51f-44e5-9c21-bd135d015d12",
-  }
-  ```
+  Uploads an SSH public key (`POST /v2/sshkeys`).
   """
-  @spec upload(t()) :: Civo.Response.t() | Civo.Error.t()
-  def upload(%__MODULE__{} = params),
-    do: Civo.post(@path, params)
+  @spec create(t()) :: Civo.Response.t() | Civo.Error.t()
+  def create(%__MODULE__{} = params) do
+    params
+    |> Civo.require!([:name, :public_key])
+    |> then(&Civo.post(@path, &1))
+  end
 
   @doc """
-  Updates an existing SSH key.
+  Updates an SSH key (`PUT /v2/sshkeys/:id`).
 
-  ### Request
-  The following parameter(s) should be sent along with the request:
-
-  | Name  | Description |
-  | ----- | ----------- |
-  | `id`  | the ID of the SSH key to update |
-  | `name` | a string that will be the OpenStack reference for the SSH key. |
-
-  ### Response
-  The response from the server will be the updated SSH key.
-
-  ```elixir
-  [
-    {
-      "id": "730c960f-a51f-44e5-9c21-bd135d015d12",
-      "name": "updated-name",
-      "fingerprint": "SHA256:181210f8f9c779c26da1d9b2075bde0127302ee0e3fca38c9a83f5b1dd8e5d3b"
-    }
-  ]
-  ```
+  Accepts a `t` struct or a map (typically `%{name: ...}`).
   """
-  @spec update(String.t(), String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def update(id, name),
-    do:
-      @path
-      |> Path.join(id)
-      |> Civo.put(%{name: name})
+  @spec update(String.t(), t() | map()) :: Civo.Response.t() | Civo.Error.t()
+  def update(id, %__MODULE__{} = params),
+    do: update(id, Map.from_struct(params))
+
+  def update(id, params) when is_map(params) do
+    @path
+    |> Path.join(id)
+    |> Civo.put(params)
+  end
 
   @doc """
-  Deletes an SSH key.
-
-  The account holder can remove an SSH key attached to their account. 
-  However, this only removes it from selection when creating instances, 
-  it doesn't remove it from previously created instances. This should 
-  be definitely confirmed by the user before any API call is made 
-  because doing so will immediately remove the SSH key.
-
-  ### Request
-  This request takes the key name parameter.
-
-  ### Response
-  The response from the server will be a JSON block. The response will 
-  include a result field and the HTTP status will be 202 Accepted.
-
-  ```elixir
-  {
-    "result": "success"
-  }
-  ```
+  Deletes an SSH key (`DELETE /v2/sshkeys/:id`).
   """
   @spec delete(String.t()) :: Civo.Response.t() | Civo.Error.t()
   def delete(id),
-    do:
-      @path
-      |> Path.join(id)
-      |> Civo.delete()
+    do: @path |> Path.join(id) |> Civo.delete()
 end

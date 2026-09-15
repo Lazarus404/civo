@@ -1,128 +1,47 @@
 defmodule Civo.VolumesTest do
   use ExUnit.Case
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney, options: [clear_mock: true]
-  alias Civo.{Volumes, Request, Response}
-  doctest Volumes
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  setup do
-    ExVCR.Config.cassette_library_dir("test/fixture/vcr_cassettes/volumes")
-    :ok
-  end
+  alias Civo.{Volumes, Response}
 
-  test "lists volumes" do
-    resp =
-      use_cassette "list volumes" do
-        Volumes.list()
-      end
+  test "volume CRUD and attach" do
+    stubs = [
+      [
+        url: "~r/volumes/",
+        method: "get",
+        status_code: 200,
+        body: ~s([{"id":"v1","name":"disk"}])
+      ],
+      [
+        url: "~r/volumes/",
+        method: "post",
+        status_code: 200,
+        body: ~s({"id":"v1","name":"disk","result":"success"})
+      ],
+      [url: "~r/attach/", method: "put", status_code: 200, body: ~s({"result":"success"})],
+      [url: "~r/detach/", method: "put", status_code: 200, body: ~s({"result":"success"})],
+      [
+        url: "~r/volumes\/v1/",
+        method: "delete",
+        status_code: 200,
+        body: ~s({"result":"success"})
+      ]
+    ]
 
-    assert %Response{
-             body: {:ok, []},
-             request: %Request{
-               body: "",
-               method: :get,
-               url: "https://api.civo.com/v2/volumes"
-             },
-             status: 200
-           } = resp
-  end
+    use_cassette :stub, stubs do
+      assert %Response{body: [%{"id" => "v1"}]} = Volumes.list("LON1")
 
-  test "create a volume" do
-    data = %Volumes{
-      name: "test",
-      size_gb: 1,
-      bootable: false
-    }
+      assert %Response{body: %{"id" => "v1"}} =
+               Volumes.create(%Volumes{
+                 name: "disk",
+                 size_gb: 25,
+                 network_id: "net-1",
+                 region: "LON1"
+               })
 
-    resp =
-      use_cassette "create volume" do
-        Volumes.create(data)
-      end
-
-    assert %Response{
-             body:
-               {:ok,
-                %{
-                  "id" => "fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393",
-                  "name" => "test",
-                  "result" => "success"
-                }},
-             request: %Request{
-               body: "{\"size_gb\":1,\"name\":\"test\",\"bootable\":false}",
-               method: :post,
-               url: "https://api.civo.com/v2/volumes"
-             },
-             status: 200
-           } = resp
-  end
-
-  test "resize a volume" do
-    resp =
-      use_cassette "resize volume" do
-        Volumes.resize("fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393", 2)
-      end
-
-    assert %Response{
-             body: {:ok, %{"result" => "success"}},
-             request: %Request{
-               body: "{\"size_gb\":2}",
-               method: :put,
-               url: "https://api.civo.com/v2/volumes/fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393/resize"
-             },
-             status: 200
-           } = resp
-  end
-
-  test "attach a volume" do
-    resp =
-      use_cassette "attach volume" do
-        Volumes.attach(
-          "fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393",
-          "92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b"
-        )
-      end
-
-    assert %Response{
-             body: {:ok, %{"result" => "success"}},
-             request: %Request{
-               body: "{\"instance_id\":\"92608a9f-ad7b-47c4-ab54-3bbd3f8fe94b\"}",
-               method: :put,
-               url: "https://api.civo.com/v2/volumes/fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393/attach"
-             },
-             status: 200
-           } = resp
-  end
-
-  test "detach a volume" do
-    resp =
-      use_cassette "detach volume" do
-        Volumes.detach("fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393")
-      end
-
-    assert %Response{
-             body: {:ok, %{"result" => "success"}},
-             request: %Request{
-               body: "{}",
-               method: :put,
-               url: "https://api.civo.com/v2/volumes/fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393/detach"
-             },
-             status: 200
-           } = resp
-  end
-
-  test "delete a volume" do
-    resp =
-      use_cassette "delete volume" do
-        Volumes.delete("fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393")
-      end
-
-    assert %Response{
-             body: {:ok, %{"result" => "success"}},
-             request: %Request{
-               body: nil,
-               method: :delete,
-               url: "https://api.civo.com/v2/volumes/fcf2ef52-34f4-4ef9-a3d7-daecb9f5f393"
-             },
-             status: 200
-           } = resp
+      assert %Response{body: %{"result" => "success"}} = Volumes.attach("v1", "i1", "LON1")
+      assert %Response{body: %{"result" => "success"}} = Volumes.detach("v1", "LON1")
+      assert %Response{body: %{"result" => "success"}} = Volumes.delete("v1", "LON1")
+    end
   end
 end

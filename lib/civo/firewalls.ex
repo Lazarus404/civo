@@ -1,244 +1,153 @@
 defmodule Civo.Firewalls do
   @moduledoc """
-  The simplest solution for most customers is to configure a firewall within 
-  their Instances using either iptables which is powerful or Uncomplicated 
-  Firewall/ufw which is much simpler but only works on Ubuntu.
+  Firewalls and rules (`/v2/firewalls`).
 
-  As another option, customers can configure custom firewall rules for 
-  their instances using the Firewall API which adjusts the security group 
-  for your network of instances. These are a freely configurable option, 
-  however customers should be careful to not lock out their access to the 
-  instances.
+  New firewalls deny by default; open ports with `create_rule/2`. Create
+  requires `name`, `network_id`, and `region`. Assign a firewall to an
+  instance with `Civo.Instances.firewall/3`.
 
-  This API is effectively split in to two parts: 1) Managing firewalls 
-  themselves, and 2) Managing rules within those firewalls.
+  ## Rule fields (`t`)
+
+  | Field | Required | Description |
+  | --- | --- | --- |
+  | `:protocol` | yes | `"tcp"`, `"udp"`, or `"icmp"` (default `"tcp"`) |
+  | `:start_port` | yes | Start port (or single port) |
+  | `:end_port` | no | End of port range |
+  | `:cidr` | no | Remote CIDR (default `0.0.0.0/0`) |
+  | `:direction` | no | `"ingress"` (default) or `"egress"` |
+  | `:label` | no | Display label |
+  | `:action` | no | `"allow"` (default) or `"deny"` |
+  | `:region` | yes* | Region for the rule |
+
+  `/v2/vpc/firewalls` is an API alias of these endpoints.
   """
-  #  the protocol choice from tcp, udp or icmp (the default if unspecified is tcp)
-  defstruct protocol: nil,
-            #  the start of the port range to configure for this rule (or the single port if required)
-            start_port: nil,
-            #  the end of the port range (this is optional, by default it will only apply to the single port listed in start_port)
-            end_port: nil,
-            #  the IP address of the other end (i.e. not your instance) to affect, or a valid network CIDR (defaults to being globally applied, i.e. 0.0.0.0/0)
-            cidr: nil,
-            # will this rule affect inbound or outbound traffic (by default this is inbound)
-            direction: nil,
-            # a string that will be the displayed name/reference for this rule (optional)
-            label: nil
 
-  @type t :: %{
+  @typedoc "Parameters for creating or describing a firewall rule."
+  @type t :: %__MODULE__{
           protocol: String.t(),
-          start_port: integer(),
-          end_port: integer(),
-          cidr: String.t(),
+          start_port: integer() | String.t() | nil,
+          end_port: integer() | String.t() | nil,
+          cidr: String.t() | nil,
           direction: String.t(),
-          label: String.t()
+          label: String.t() | nil,
+          action: String.t(),
+          region: String.t() | nil
         }
+
+  defstruct protocol: "tcp",
+            start_port: nil,
+            end_port: nil,
+            cidr: nil,
+            direction: "ingress",
+            label: nil,
+            action: "allow",
+            region: nil
 
   @path "firewalls"
 
   @doc """
-  Create a firewall for an account.
+  Creates a firewall (`POST /v2/firewalls`).
 
-  Any user can create firewalls for their network of instances, 
-  there is a quota'd limit to the number of firewalls that can be 
-  created, but generally this is much higher than most customers 
-  will require and it can be increased if required.
-
-  ### Request
-  
-  | Name | Description |
-  | ---- | ----------- |
-  | `name` | A unique name for this firewall within your account |
-
-  ### Response
-  The response is a JSON object that confirms the details given, 
-  with a null for firewall rule_at (as it won't have been taken yet).
-
-  ```elixir
-  {
-    "result": "success",
-    "id": "84c38c6b-e7ae-43c9-b8d2-7294cb811e1a",
-    "name": "instance-123456"
-  }
-  ```
+  `extra` may include options such as `:create_default_rules`.
   """
-  @spec create(String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def create(name),
-    do: Civo.post(@path, %{name: name})
+  @spec create(String.t(), String.t(), String.t() | nil, map()) ::
+          Civo.Response.t() | Civo.Error.t()
+  def create(name, network_id, region \\ nil, extra \\ %{}) do
+    region = Civo.require_region!(region)
+
+    params =
+      extra
+      |> Map.merge(%{name: name, network_id: network_id})
+      |> then(&Civo.region_params(region, &1))
+
+    Civo.post(@path, params)
+  end
 
   @doc """
-  Create rules for a firewall.
-
-  An account holder can create firewall rules for a specific 
-  firewall, but there is a quota'd limit to the number of rules 
-  that can be created, but generally this is much higher than 
-  most customers will require and it can be increased if required.
-
-  ### Request
-  The following parameters are required for setting firewall rules 
-  (note: there's no allow/deny choice as the default for a new 
-  firewall is to deny everything, so you only need to open the 
-  ports/port ranges needed):
-
-  | Name | Description |
-  | ---- | ----------- |
-  | `id` | the id of the firewall to apply the rules to. |
-  | `protocol` | the protocol choice from tcp, udp or icmp (the default if unspecified is tcp) |
-  | `start_port` | the start of the port range to configure for this rule (or the single port if required) |
-  | `end_port` | the end of the port range (this is optional, by default it will only apply to the single port listed in start_port) |
-  | `cidr` | the IP address of the other end (i.e. not your instance) to affect, or a valid network CIDR (defaults to being globally applied, i.e. 0.0.0.0/0) |
-  | `direction` | will this rule affect inbound or outbound traffic (by default this is inbound) |
-  | `label` | a string that will be the displayed name/reference for this rule (optional) |
-
-  ### Response
-  The response is a JSON object that confirms the details given, 
-  with a null for firewall rule_at (as it won't have been taken yet).
-
-  ```elixir
-  {
-    "id": "1d0b4bec-2e94-44bd-9c08-8927aefa99cd",
-    "firewall_id": "878d9dca-1687-4162-966e-281b2cc6bf2c",
-    "openstack_security_group_rule_id": null,
-    "protocol": "tcp",
-    "start_port": "443",
-    "end_port": "443",
-    "cidr": [
-      "0.0.0.0/0"
-    ],
-    "direction": "ingress",
-    "label": null
-  }
-  ```
+  Lists firewalls (`GET /v2/firewalls`).
   """
-  @spec rules(String.t(), t()) :: Civo.Response.t() | Civo.Error.t()
-  def rules(id, %__MODULE__{} = params),
-    do:
-      Path.join([@path, id, "rules"])
-      |> Civo.post(params)
+  @spec list(String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def list(region \\ nil),
+    do: Civo.get(@path, Civo.region_params(region))
 
   @doc """
-  Retrieve rules for a firewall.
-
-  ### Request
-  This request takes the id of a firewall.
-
-  ### Response
-  The response is a JSON array of objects that describes 
-  summary details for each instance.
-
-  ```elixir
-  [
-    {
-      "id": "1d0b4bec-2e94-44bd-9c08-8927aefa99cd",
-      "firewall_id": "84c38c6b-e7ae-43c9-b8d2-7294cb811e1a",
-      "openstack_security_group_rule_id": null,
-      "protocol": "tcp",
-      "start_port": "443",
-      "end_port": "443",
-      "cidr": [
-        "0.0.0.0/0"
-      ],
-      "direction": "ingress",
-      "label": "My Rule",
-    }
-  ]
-  ```
+  Fetches a firewall by `id` (`GET /v2/firewalls/:id`).
   """
-  @spec rules(String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def rules(id),
-    do:
-      Path.join([@path, id, "rules"])
-      |> Civo.get()
+  @spec get(String.t(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def get(id, region \\ nil) do
+    region = Civo.require_region!(region)
+    @path |> Path.join(id) |> Civo.get(Civo.region_params(region))
+  end
 
   @doc """
-  List firewalls for an account.
+  Updates a firewall (`PUT /v2/firewalls/:id`).
 
-  ### Request
-  This request takes no parameters.
-
-  ### Response
-  The response is a JSON array of objects that describes summary 
-  details for each instance. It shows clearly how many rules it 
-  contains and how many instances are currently configured to be 
-  using it (you can share firewalls between multiple instances).
-
-  ```elixir
-  [
-    {
-      "id": "84c38c6b-e7ae-43c9-b8d2-7294cb811e1a",
-      "name": "instance-123456",
-      "openstack_security_group_id": null,
-      "rules_count": 3,
-      "instances_count": 10,
-      "region": "lon1"
-    }
-  ]
-  ```
+  `params` typically includes `:name`.
   """
-  @spec list() :: Civo.Response.t() | Civo.Error.t()
-  def list(),
-    do: Civo.get(@path)
+  @spec update(String.t(), map(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def update(id, params, region \\ nil) when is_map(params) do
+    region = Civo.require_region!(region)
+
+    @path
+    |> Path.join(id)
+    |> Civo.put(Civo.region_params(region, params))
+  end
 
   @doc """
-  Delete a firewall from an account.
+  Creates a firewall rule (`POST /v2/firewalls/:id/rules`).
 
-  An account holder can remove a firewall, freeing up the space 
-  used within their quota. 
-
-  Note: Firewalls can exist even if the instances have all be 
-  removed, so if you are not setting up a firewall per instance, 
-  you should monitor the list of firewalls for any that has a zero 
-  instance_count and delete them, or their take up quota allocation.
-
-  ### Request
-  This request takes the ID of the firewall 
-  to delete. No confirmation step is required, 
-  this step will remove the firewall immediately.
-
-  ### Response
-  The response from the server will be a JSON block. The response 
-  will include a result field and the HTTP status will be 202 
-  Accepted.
-
-  ```elixir
-  {
-    "result": "success"
-  }
-  ```
+  Pass a `t` struct or a map of rule fields (see module docs).
   """
-  @spec delete(String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def delete(id),
-    do:
-      @path
-      |> Path.join(id)
-      |> Civo.delete()
+  @spec create_rule(String.t(), t() | map()) :: Civo.Response.t() | Civo.Error.t()
+  def create_rule(firewall_id, %__MODULE__{} = params),
+    do: create_rule(firewall_id, Map.from_struct(params))
+
+  def create_rule(firewall_id, params) when is_map(params) do
+    Path.join([@path, firewall_id, "rules"])
+    |> Civo.post(params)
+  end
 
   @doc """
-  Delete a rule from a firewall.
-
-  An account holder can remove a firewall rule, freeing up 
-  the usage of their quota.
-
-  ### Request
-  This request takes the ID of the firewall rule to delete and 
-  the name of the firewall. No confirmation step is required, 
-  this step will remove the firewall rule immediately.
-
-  ### Response
-  The response from the server will be a JSON block. The response 
-  will include a result field and the HTTP status will be 202 
-  Accepted.
-
-  ```elixir
-  {
-    "result": "success"
-  }
-  ```
+  Lists rules for a firewall (`GET /v2/firewalls/:id/rules`).
   """
-  @spec delete(String.t(), String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def delete(firewall_id, rule_id),
-    do:
-      Path.join([@path, firewall_id, "rules", rule_id])
-      |> Civo.delete()
+  @spec rules(String.t(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def rules(firewall_id, region \\ nil) do
+    region = Civo.require_region!(region)
+
+    Path.join([@path, firewall_id, "rules"])
+    |> Civo.get(Civo.region_params(region))
+  end
+
+  @doc """
+  Updates a firewall rule (`PUT /v2/firewalls/:id/rules/:rule_id`).
+  """
+  @spec update_rule(String.t(), String.t(), map(), String.t() | nil) ::
+          Civo.Response.t() | Civo.Error.t()
+  def update_rule(firewall_id, rule_id, params, region \\ nil) when is_map(params) do
+    region = Civo.require_region!(region)
+
+    Path.join([@path, firewall_id, "rules", rule_id])
+    |> Civo.put(Civo.region_params(region, params))
+  end
+
+  @doc """
+  Deletes a firewall (`DELETE /v2/firewalls/:id`).
+  """
+  @spec delete(String.t(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def delete(id, region \\ nil) do
+    region = Civo.require_region!(region)
+    @path |> Path.join(id) |> Civo.delete(Civo.region_params(region))
+  end
+
+  @doc """
+  Deletes a firewall rule (`DELETE /v2/firewalls/:id/rules/:rule_id`).
+  """
+  @spec delete_rule(String.t(), String.t(), String.t() | nil) ::
+          Civo.Response.t() | Civo.Error.t()
+  def delete_rule(firewall_id, rule_id, region \\ nil) do
+    region = Civo.require_region!(region)
+
+    Path.join([@path, firewall_id, "rules", rule_id])
+    |> Civo.delete(Civo.region_params(region))
+  end
 end

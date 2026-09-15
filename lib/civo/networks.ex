@@ -1,110 +1,69 @@
 defmodule Civo.Networks do
   @moduledoc """
-  To manage the private networks for an account, there are a 
-  set of APIs for listing them, as well as adding, renaming 
-  and removing them by ID.
+  Private networks (`/v2/networks`).
+
+  Create with a `label` and optional CIDR / DNS settings. Rename and
+  delete require a `region`. Networks cannot be deleted while instances
+  still use them.
+
+  `/v2/vpc/networks` is an API alias of these endpoints.
   """
+
   @path "networks"
 
   @doc """
-  Creates a new private network.
+  Creates a private network (`POST /v2/networks`).
 
-  ### Request
-  The following parameter should be sent along with the request:
+  ## Options in `opts`
 
-  | Name | Description |
-  | ---- | ----------- |
-  | `label` | a string that will be the displayed name/reference for the network. |
-
-  ### Response
-  The response from the server will just be a confirmation of success.
-
-  ```elixir
-  {
-    "result": "success",
-    "id": "50f2fffa-f81e-4e96-830f-e78f7e565e6f"
-    "label": "development"
-  }
-  ```
+  * `:region` — region code
+  * `:cidr_v4` — RFC 1918 CIDR for the network
+  * `:nameservers_v4` — comma-separated DNS servers
+  * `:ipv4_enabled` — whether IPv4 is enabled (default true)
   """
-  @spec create(String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def create(label),
-    do: Civo.post(@path, %{label: label})
+  @spec create(String.t(), map()) :: Civo.Response.t() | Civo.Error.t()
+  def create(label, opts \\ %{}) when is_map(opts) do
+    Civo.post(@path, Map.put(opts, :label, label))
+  end
 
   @doc """
-  Lists all available networks in an account.
-
-  ### Request
-  This request doesn't take any parameters.
-
-  ### Response
-  The response from the server will be a list of the SSH keys 
-  known for the current account holder.
-
-  ```elixir
-  [
-    {
-      "id": "50f2fffa-f81e-4e96-830f-e78f7e565e6f",
-      "name": "example-ltd-a775-development-75362452-562f-4b70-a65a-aeb4d4cd6864",
-      "region": "lon1",
-      "default": false,
-      "cidr": "0.0.0.0/0",
-      "label": "development"
-    }
-  ]
-  ```
+  Lists networks (`GET /v2/networks`).
   """
-  @spec list() :: Civo.Response.t() | Civo.Error.t()
-  def list(),
-    do: Civo.get(@path)
+  @spec list(String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def list(region \\ nil),
+    do: Civo.get(@path, Civo.region_params(region))
 
   @doc """
-  Renames a private network.
-
-  ### Request
-  This request takes an id parameter of the network to rename and
-  a label parameter which is the new label to use.
-
-  ### Response
-  The response from the server will be a JSON block. The response 
-  will include a result field and the HTTP status will be 202 Accepted.
-
-  ```elixir
-  {
-    "result": "success",
-    "id": "50f2fffa-f81e-4e96-830f-e78f7e565e6f",
-    "label": "development",
-  }
-  ```
+  Fetches a network by `id` (`GET /v2/networks/:id`).
   """
-  @spec rename(String.t(), String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def rename(id, label),
-    do:
-      @path
-      |> Path.join(id)
-      |> Civo.put(%{label: label})
+  @spec get(String.t(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def get(id, region \\ nil) do
+    region = Civo.require_region!(region)
+    @path |> Path.join(id) |> Civo.get(Civo.region_params(region))
+  end
 
   @doc """
-  The account holder can remove a private network, providing 
-  there are no instances using it.
+  Renames a network (`PUT /v2/networks/:id`).
 
-  ### Request
-  This request takes an ID parameter.
-
-  ### Response
-  The response from the server will be a JSON block. The response 
-  will include a result field and the HTTP status will be 202 Accepted.
-
-  ```elixir
-  {
-    "result": "success"
-  }
-  ```
+  Sets the display `label`.
   """
-  @spec delete(String.t()) :: Civo.Response.t() | Civo.Error.t()
-  def delete(id),
-    do:
-      @path
-      |> Path.join(id)
-      |> Civo.delete()
+  @spec rename(String.t(), String.t(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def rename(id, label, region \\ nil) do
+    region = Civo.require_region!(region)
+
+    @path
+    |> Path.join(id)
+    |> Civo.put(Civo.region_params(region, %{label: label}))
+  end
+
+  @doc """
+  Deletes a network (`DELETE /v2/networks/:id`).
+
+  Fails if any instances still use the network.
+  """
+  @spec delete(String.t(), String.t() | nil) :: Civo.Response.t() | Civo.Error.t()
+  def delete(id, region \\ nil) do
+    region = Civo.require_region!(region)
+    @path |> Path.join(id) |> Civo.delete(Civo.region_params(region))
+  end
 end

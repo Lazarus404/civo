@@ -1,4 +1,8 @@
 import Config
 
+# Library defaults — consumers set these in their own config.
 config :civo,
-  api_token: "50m34p1c0d3th4td035ntw0rk"
+  api_token: nil,
+  region: nil
+
+import_config "#{config_env()}.exs"
